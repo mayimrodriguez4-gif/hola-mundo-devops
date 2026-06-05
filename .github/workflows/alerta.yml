@@ -1,1 +1,24 @@
+name: Notificacion NTFY
 
+on:
+  push:
+    branches:
+      - principal
+
+jobs:
+  notificar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Ejecutar Hola Mundo
+        run: node hola.js
+
+      - name: Enviar notificacion
+        run: |
+          curl -H "Title: GitHub Actions" \
+               -H "Priority: default" \
+               -d "Se realizó un push al repositorio ${{ github.repository }}" \
+               https://ntfy.sh/devops-itla
